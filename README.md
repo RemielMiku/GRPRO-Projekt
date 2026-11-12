@@ -1,2 +1,2 @@
-<h1 align="center" style="color: pink;"> 1. Semesters Grundlæggende Programmering projekt </h1>
-<p>Objectively the best project. This is **NOT** up for debate</p>
+<h1 align="center">1. Semesters Grundlæggende Programmering projekt</h1>
+<p>Objectively the best project by any of the groups. This is **NOT** up for debate.</p>
