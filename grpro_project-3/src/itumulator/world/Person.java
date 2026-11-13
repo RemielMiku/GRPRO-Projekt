@@ -1,7 +1,7 @@
 package itumulator.world;
 import itumulator.simulator.Actor;
 import java.util.*;
-public class Person implements Actor, NonBlocking {
+public class Person implements Actor{
     private Random RAND = new Random();
     @Override
     public void act(World world) {
