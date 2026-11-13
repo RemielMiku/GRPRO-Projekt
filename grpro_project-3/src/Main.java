@@ -13,9 +13,9 @@ public class Main {
 
         World w = p.getWorld();
 
-        // w.setTile(new Location(0, 0), new <MyClass>());
+       // w.setTile(new Location(0, 0), new <MyClass>());
 
-        // p.setDisplayInformation(<MyClass>.class, new DisplayInformation(<Color>, "<ImageName>"));
+       // p.setDisplayInformation(<MyClass>.class, new DisplayInformation(<Color>, "<ImageName>"));
 
         p.show();
     }
