@@ -1,11 +1,7 @@
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Random;
 
-import itumulator.executable.DisplayInformation;
 import itumulator.executable.Program;
-import itumulator.simulator.Actor;
 import itumulator.world.Location;
 import itumulator.world.World;
 import itumulator.world.Person;
