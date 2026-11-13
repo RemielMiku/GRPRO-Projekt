@@ -8,7 +8,6 @@ import itumulator.executable.Program;
 import itumulator.simulator.Actor;
 import itumulator.world.Location;
 import itumulator.world.World;
-import itumulator.world.NonBlocking;
 import itumulator.world.Person;
 
 public class Main {
@@ -28,6 +27,13 @@ public class Main {
             int x = r.nextInt(size);
             int y = r.nextInt(size);
             Location l = new Location(x, y);
+
+            while(!w.isTileEmpty(l)) {
+                x = r.nextInt(size);
+                y = r.nextInt(size);
+                l = new Location(x, y);
+            }
+
             w.setTile(l, new Person());
 
         p.show();
