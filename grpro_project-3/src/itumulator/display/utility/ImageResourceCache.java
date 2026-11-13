@@ -37,8 +37,8 @@ public class ImageResourceCache {
     private ImageResourceCache(){
         cache = new HashMap<String, BufferedImage>();
 
-        loadFolder("./resources/");
-        loadFolder("../resources");
+        loadFolder("./grpro_project-3/resources/");
+        loadFolder("../grpro_project-3/resources");
     }
 
     private void loadFolder(String folderPath){

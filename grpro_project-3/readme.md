@@ -105,7 +105,7 @@ Next, we just need to show our simulation and run it:
 ```java
 p.show(); // shows the simulation
 for (int i = 0; i < 200; i++) {
-    p.simulate(); // runs 200 rounds; 'act' is called 200 times for all placed actors
+    p.simulate();   // runs 200 rounds; 'act' is called 200 times for all placed actors
 }
 ```
 
