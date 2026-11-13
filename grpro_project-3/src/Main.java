@@ -14,11 +14,12 @@ public class Main {
 
         World w = p.getWorld();
 
-        // w.setTile(new Location(0, 0), new <MyClass>());
-
-        // p.setDisplayInformation(<MyClass>.class, new DisplayInformation(<Color>, "<ImageName>"));
+        w.setTile(new Location(0, 0), new <MyClass>());
+        p.setDisplayInformation(<MyClass>.class, new DisplayInformation(<Color>, "<ImageName>"));
+        /* */
         int amount = 10;
         Random r = new Random();
+
         for (int i = 0; i < amount; i++) {
             int x = r.nextInt(size);
             int y = r.nextInt(size);
@@ -32,7 +33,7 @@ public class Main {
 
             w.setTile(l, new Person());
 
-        p.show();
         }
+        p.show();
     }
 }
