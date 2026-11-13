@@ -14,8 +14,8 @@ public class Main {
 
         World w = p.getWorld();
 
-       w.setTile(new Location(0, 0), new <MyClass>());
-        p.setDisplayInformation(<MyClass>.class, new DisplayInformation(<Color>, "<ImageName>"));
+       //  w.setTile(new Location(0, 0), new <MyClass>());
+       //  p.setDisplayInformation(<MyClass>.class, new DisplayInformation(<Color>, "<ImageName>"));
         
         int amount = 10;
         Random r = new Random();
