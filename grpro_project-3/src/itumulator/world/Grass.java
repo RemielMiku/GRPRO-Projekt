@@ -1,5 +1,7 @@
 package itumulator.world;
 
-public class Grass {
+public class Grass implements NonBlocking {
     
+    public Grass() {
+    }
 }
