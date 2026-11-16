@@ -3,13 +3,11 @@ import java.awt.Color;
 import itumulator.executable.DisplayInformation;
 
 public class Hole implements NonBlocking {
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
+    boolean working;
 
-
-    public Hole(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Hole() {
     }
 
     public int getX() {
