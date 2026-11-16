@@ -17,10 +17,10 @@ public class Main {
 
         // p.setDisplayInformation(<MyClass>.class, new DisplayInformation(<Color>, "<ImageName>"));
 
-        p.show();
+        /* p.show();
         for (int i = 0; i < 200; i++) {
             p.simulate();
 
-        }
+        } */
     }
 }
