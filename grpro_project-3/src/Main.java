@@ -5,37 +5,59 @@ import itumulator.executable.Program;
 import itumulator.world.*;
 
 public class Main {
-    static Scanner scanner = new Scanner(System.in);
+    //static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         int size = 5;
-        Program p = new Program(size, 800, 75);
-        World w = p.getWorld();
+        Program program = new Program(size, 800, 75);
+        World world = program.getWorld();
         Random rand = new Random();
 
         // Implements all picture to classes:
         // Implements hole.png to Hole class
         DisplayInformation hole = new DisplayInformation(Color.black, "hole");
-        p.setDisplayInformation(Hole.class, hole);
+        program.setDisplayInformation(Hole.class, hole);
         // Implements grass.png to Grass class
         DisplayInformation grass = new DisplayInformation(Color.green, "grass");
-        p.setDisplayInformation(Grass.class, grass);
+        program.setDisplayInformation(Grass.class, grass);
         // implements rabbit.png to Bunny class
         DisplayInformation bunny = new DisplayInformation(Color.white, "rabbit-large");
-        p.setDisplayInformation(Bunny.class, bunny);
+        program.setDisplayInformation(Bunny.class, bunny);
+        /*
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             
         }
+        */
 
-        w.setTile(new Location(rand.nextInt(size), rand.nextInt(size)), new Hole());
+        world.setTile(new Location(rand.nextInt(size), rand.nextInt(size)), new Hole());
         
-        /*
-        p.show();
+        // random location
+        Location grassLocation = new Location(rand.nextInt(size), rand.nextInt(size));
+        // check if location already has nonblocking
+        if (!world.containsNonBlocking(grassLocation)){
+            // new grass
+            Grass grasss = new Grass(grassLocation);
+            world.setTile(grasss.location, grasss);
+        } else {
+            while (world.containsNonBlocking(grassLocation)){
+                // new grass
+                Grass grasss = new Grass(grassLocation);
+                world.setTile(grasss.location, grasss);
+                    if (!world.containsNonBlocking(grassLocation)) {
+                        // new grass
+                        grasss = new Grass(grassLocation);
+                        world.setTile(grasss.location, grasss);
+                    }
+                // new random location
+                grassLocation = new Location(rand.nextInt(size), rand.nextInt(size));
+            }
+        }
+
+        program.show();
         for (int i = 0; i < 200; i++) {
-            p.simulate();
+            program.simulate();
         
         }
-        */
     }
 }
