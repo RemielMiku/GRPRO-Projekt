@@ -4,21 +4,19 @@ import java.util.*;
 
 public class Grass implements NonBlocking {
     public Location location;
+    private World world;
 
-    public Grass(Location location) {
+    public Grass(World world, Location location) {
         this.location = location;
+        this.world = world;
+    }
+
+    void grow(){
+        for (Location l : world.getSurroundingTiles(location)){
+            if (!world.containsNonBlocking(location)){
+            System.out.println(l);
+            }
+        }
     }
 
 }
-
-/*
-if (isTileEmpty){ 
-
-}
-
-for (Location l : getSurroundingTiles())
-    if (containsNonBlocking(location)){
-
-    }
-
-*/
