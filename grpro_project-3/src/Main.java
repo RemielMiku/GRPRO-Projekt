@@ -16,7 +16,7 @@ public class Main {
         Program p = new Program(size, 800, 75);
         World w = p.getWorld();
         Random rand = new Random();
-        
+
         // Implements all picture to classes:
         // Implements hole.png to Hole class
         DisplayInformation hole = new DisplayInformation(Color.black, "hole");
@@ -24,8 +24,8 @@ public class Main {
         // Implements grass.png to Grass class
         DisplayInformation grass = new DisplayInformation(Color.green, "grass");
         p.setDisplayInformation(Grass.class, grass);
-        // implements bunny.png to Bunny class
-        DisplayInformation bunny = new DisplayInformation(Color.white, "bunny");
+        // implements rabbit.png to Bunny class
+        DisplayInformation bunny = new DisplayInformation(Color.white, "rabbit-large");
         p.setDisplayInformation(Bunny.class, bunny);
 
 
