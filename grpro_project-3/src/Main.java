@@ -31,7 +31,7 @@ public class Main {
         */
 
         world.setTile(new Location(rand.nextInt(size), rand.nextInt(size)), new Hole());
-        
+
         // random location
         Location grassLocation = new Location(rand.nextInt(size), rand.nextInt(size));
         // check if location already has nonblocking
