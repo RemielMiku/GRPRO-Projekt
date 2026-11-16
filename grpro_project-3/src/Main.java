@@ -21,10 +21,6 @@ public class Main {
 
         w.setTile(new Location(rand.nextInt(size), rand.nextInt(size)), new Hole());
         // w.setTile(new Location(0, 0), new <MyClass>());
-        
-        // Jamie arbejde ting med hole
-        
-    
 
         /* 
         p.show();
