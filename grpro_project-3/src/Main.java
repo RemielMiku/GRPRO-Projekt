@@ -1,8 +1,8 @@
-import java.awt.Color;
-import java.util.*;
 import itumulator.executable.DisplayInformation;
 import itumulator.executable.Program;
 import itumulator.world.*;
+import java.awt.Color;
+import java.util.*;
 
 public class Main {
     //static Scanner scanner = new Scanner(System.in);
@@ -37,16 +37,16 @@ public class Main {
         // check if location already has nonblocking
         if (!world.containsNonBlocking(grassLocation)){
             // new grass
-            Grass grasss = new Grass(grassLocation);
+            Grass grasss = new Grass(world, grassLocation);
             world.setTile(grasss.location, grasss);
         } else {
             while (world.containsNonBlocking(grassLocation)){
                 // new grass
-                Grass grasss = new Grass(grassLocation);
+                Grass grasss = new Grass(world, grassLocation);
                 world.setTile(grasss.location, grasss);
                     if (!world.containsNonBlocking(grassLocation)) {
                         // new grass
-                        grasss = new Grass(grassLocation);
+                        grasss = new Grass(world, grassLocation);
                         world.setTile(grasss.location, grasss);
                     }
                 // new random location
