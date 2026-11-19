@@ -83,7 +83,7 @@ public class Bunny implements Actor{
             world.move(this, one);
     }
 
-    void eat(World world) {
+    public void eat(World world) {
         Set<Location> neighbours = world.getSurroundingTiles(10);
         for (Location loc : neighbours) {
             if (world.getTile(loc) instanceof Grass) {
