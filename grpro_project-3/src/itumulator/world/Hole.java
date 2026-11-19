@@ -1,8 +1,10 @@
 package itumulator.world;
 
 public class Hole implements NonBlocking {
+    Location location;
+
     public Hole(Location location) {
-        // Kontruktør implementering
+        this.location = location;
     }
     
 }

@@ -31,8 +31,10 @@ public class Main {
             
         }
         */
-        
-        
+        Location holeLocation = new Location(rand.nextInt(size), rand.nextInt(size));
+        Hole hole1 = new Hole(holeLocation);
+        world.setTile(holeLocation, hole1);
+
         int amount = 2;
         Random r = new Random();
         for (int i = 0; i < amount; i++) {
