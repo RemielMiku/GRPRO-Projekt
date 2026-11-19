@@ -16,7 +16,7 @@ public class Grass implements Actor, NonBlocking {
         this.spreadRate = spreadRate;
     }
 
-    public ArrayList<Location> getSurroundingTilesWithoutNonBlocking(){
+    private ArrayList<Location> getSurroundingTilesWithoutNonBlocking(){
         ArrayList<Location> SurroundingNonblockingTiles = new ArrayList<>();
         for (Location l : world.getSurroundingTiles(location)){
             if (!world.containsNonBlocking(l)){
@@ -32,7 +32,7 @@ public class Grass implements Actor, NonBlocking {
         ArrayList<Location> empty = getSurroundingTilesWithoutNonBlocking();
         if (!empty.isEmpty()){
             Location tile = empty.get(random.nextInt(empty.size()));
-            if (stepCounter>=1/spreadRate) {
+            if (stepCounter>=2/spreadRate) {
             // spread grass on selected tile and set spreadrate of the new tile to random between 0.1 and 1.0 (spread every 20 ticks to spread every other tick)
             world.setTile(tile, new Grass(world, tile, random.nextDouble(0.1, 1.0)));
             stepCounter = 0;
