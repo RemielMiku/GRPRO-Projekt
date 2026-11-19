@@ -31,8 +31,6 @@ public class Main {
             
         }
         */
-
-        world.setTile(new Location(rand.nextInt(size), rand.nextInt(size)), new Hole());
         
         int amount = 2;
         Random r = new Random();
