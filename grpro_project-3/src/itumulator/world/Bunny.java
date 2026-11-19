@@ -3,8 +3,6 @@ import java.util.*;
 import itumulator.simulator.Actor;
 
 public class Bunny implements Actor{
-    boolean hasEaten;
-    boolean isAlive;
     int age;
     int daysWithoutFood;
     boolean isNear;
@@ -12,8 +10,6 @@ public class Bunny implements Actor{
 
     /*
     public Bunny() {
-        hasEaten = false;
-        isAlive = true;
         age = 0;
         daysWithoutFood = 0;
     }
@@ -39,20 +35,18 @@ public class Bunny implements Actor{
         System.out.println("Bunny is acting");
         
         if (world.isDay()) {
-        move(world);
+            move(world);
         } else {
-        daysWithoutFood++;
+            daysWithoutFood++;
+            age++;
         }
-        
-        if (daysWithoutFood >= 3) {
-            isAlive = false;
+
+        if (daysWithoutFood >= 3 || age >= 20) {
             world.delete(this);
         }
 
         if (daysWithoutFood < 2) {
             eat(world);
-            hasEaten = false;
-
         }
 
     }
@@ -65,11 +59,10 @@ public class Bunny implements Actor{
     }
 
     void eat(World world) {
-        Set<Location> neighbours = world.getSurroundingTiles();
+        Set<Location> neighbours = world.getSurroundingTiles(10);
         for (Location loc : neighbours) {
             if (world.getTile(loc) instanceof Grass) {
-                world.delete(world.getTile(loc));
-                hasEaten = true;
+                world.delete(world.getNonBlocking(loc));
                 daysWithoutFood = 0;
                 break;
             }
