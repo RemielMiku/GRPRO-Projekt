@@ -35,13 +35,13 @@ public class Bunny implements Actor{
             return;
         }
 
-        if (daysWithoutFood == 3 && r.nextInt(100) > 10) {
+        if (daysWithoutFood >= 2 && r.nextInt(100) > 10) {
             eat(world);
         }
 
         isNear(world);
 
-        if (isNear == true && age >= adultAge && age < oldAge && r.nextInt(100) > 10) {
+        if (isNear == true && age >= adultAge && age < oldAge && r.nextInt(100) < 20) {
             newbunnyloc(world);
             isNear = false;
         }
@@ -65,7 +65,7 @@ public class Bunny implements Actor{
             Set<Location> bunloc = world.getEmptySurroundingTiles();
             List<Location> list = new ArrayList<>(bunloc);
 
-        for (int i = 0; i < kidsamount; i++) {
+        for (int i = 0; i == kidsamount; i++) {
             int index = r.nextInt(list.size());
             Location place = list.remove(index);
             world.setTile(place, new Bunny());
@@ -86,10 +86,12 @@ public class Bunny implements Actor{
         Set<Location> neighbours = world.getSurroundingTiles(10);
         for (Location loc : neighbours) {
             if (world.getTile(loc) instanceof Grass) {
+                world.move(this, loc);
                 world.delete(world.getNonBlocking(loc));
                 daysWithoutFood = 0;
                 break;
             }
+
         }
     }
 }
