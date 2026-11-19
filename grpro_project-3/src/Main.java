@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         int size = 5;
-        Program program = new Program(size, 800, 100);
+        Program program = new Program(size, 800, 1000);
         World world = program.getWorld();
         Random rand = new Random();
 
