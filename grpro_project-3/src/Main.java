@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.util.*;
 import itumulator.executable.DisplayInformation;
 import itumulator.executable.Program;
 import itumulator.world.*;
@@ -9,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         int size = 5;
-        Program program = new Program(size, 800, 75);
+        Program program = new Program(size, 800, 100);
         World world = program.getWorld();
         Random rand = new Random();
 
@@ -31,6 +33,23 @@ public class Main {
         */
 
         world.setTile(new Location(rand.nextInt(size), rand.nextInt(size)), new Hole());
+        
+        int amount = 2;
+        Random r = new Random();
+        for (int i = 0; i < amount; i++) {
+            int x = r.nextInt(size);
+            int y = r.nextInt(size);
+
+            Location place = new Location(x,y);
+
+            while (!world.isTileEmpty(place)) {
+                x = r.nextInt(size);
+                y = r.nextInt(size);
+
+                place = new Location(x,y);
+            }
+            world.setTile(place, new Bunny());
+        }
 
         // random location
         Location grassLocation = new Location(rand.nextInt(size), rand.nextInt(size));
