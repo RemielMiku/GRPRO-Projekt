@@ -32,6 +32,7 @@ public class Main {
         }
         */
         
+        
         int amount = 2;
         Random r = new Random();
         for (int i = 0; i < amount; i++) {
