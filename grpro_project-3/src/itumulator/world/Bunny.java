@@ -35,7 +35,7 @@ public class Bunny implements Actor{
             return;
         }
 
-        if (daysWithoutFood < 1) {
+        if (daysWithoutFood == 3 && r.nextInt(100) > 10) {
             eat(world);
         }
 
@@ -56,7 +56,6 @@ public class Bunny implements Actor{
         for (Location loc : bunnys) {
             if (world.getTile(loc) instanceof Bunny) {
                 isNear = true;
-                System.out.println("Bunny is near");
                 break;
             }
         }
