@@ -50,32 +50,32 @@ public class Main {
             world.setTile(place, new Bunny());
         }
 
-        // random location
-        Location grassLocation = new Location(rand.nextInt(size), rand.nextInt(size));
-        // check if location already has nonblocking
-        if (!world.containsNonBlocking(grassLocation)){
-            // new grass
-            Grass grasss = new Grass(world, grassLocation, 0.5);
-            world.setTile(grasss.location, grasss);
-        } else {
-            while (world.containsNonBlocking(grassLocation)){
-                // new grass
-                Grass grasss = new Grass(world, grassLocation, 0.5);
-                world.setTile(grasss.location, grasss);
-                    if (!world.containsNonBlocking(grassLocation)) {
-                        // new grass
-                        grasss = new Grass(world, grassLocation, 0.5);
-                        world.setTile(grasss.location, grasss);
-                    }
-                // new random location
-                grassLocation = new Location(rand.nextInt(size), rand.nextInt(size));
-            }
-        }
 
         program.show();
         for (int i = 0; i < 200; i++) {
             program.simulate();
-        
+            
+            int grassCount = 0;
+
+            // Go through all entities existing in the world and count grass
+            for (Object e : world.getEntities().keySet()){
+                if (e instanceof Grass){
+                    grassCount++;
+                }
+            }
+
+            if (grassCount<=1){
+                // random location
+                Location grassLocation = new Location(rand.nextInt(size), rand.nextInt(size));
+                // check if location already has nonblocking
+                while (world.containsNonBlocking(grassLocation)){
+                    // new random location
+                    grassLocation = new Location(rand.nextInt(size), rand.nextInt(size));
+                }
+                Grass grasss = new Grass(world, grassLocation, 0.5);
+                world.setTile(grasss.location, grasss);
+            }
+
         }
     }
 }
