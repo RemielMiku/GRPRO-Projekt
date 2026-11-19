@@ -32,7 +32,6 @@ public class Bunny implements Actor{
 */
     @Override
     public void act(World world){
-        System.out.println("Bunny is acting");
         
         if (world.isDay()) {
             move(world);
