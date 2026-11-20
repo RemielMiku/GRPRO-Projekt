@@ -32,16 +32,18 @@ public class Bunny implements Actor{
         
         if (world.isDay()) {
             if (sleeping){
-                sleeping = !getUpBro(world);
+                if (getUpBro(world)){
+                    sleeping = false;
+                }
             } else {
                 move(world);
             }
         } else {
-            sleep(world);
-            sleeping = true;
-        }
+            if (!sleeping){
+                sleep(world);
+            }
+       }
 
-        if (!sleeping){
             if (daysWithoutFood >= 3 || age >= maxAge) {
             world.delete(this);
             return;
@@ -56,12 +58,13 @@ public class Bunny implements Actor{
             eat(world);
         }
 
-        isNear(world);
+        if (this.location != null){
+            isNear(world);
+        }
 
         if (isNear == true && age >= adultAge && age < oldAge && r.nextInt(100) < 20) {
             newbunnyloc(world);
             isNear = false;
-        }
         }
 
     }
@@ -140,12 +143,12 @@ public class Bunny implements Actor{
              hole = findHole(world, world.getLocation(this));
             if (hole == null && !dig(world, world.getLocation(this))){
                 move(world);
-                return;
             }
         }
         Location holeLocation = world.getLocation(hole);
         if (distanceCalc(nowLocation, holeLocation) <= 1){
             world.remove(this);
+            sleeping = true;
         } else {
             goFromHereToHere(world, nowLocation, holeLocation);
         }
@@ -155,11 +158,8 @@ public class Bunny implements Actor{
         if (hole == null){
             return false;
         }
-        Location sleepLocation = world.getLocation(hole);
 
-        if (sleepLocation == null){
-            return false;
-        }
+        Location sleepLocation = world.getLocation(hole);
 
         List<Location> available = new ArrayList<>(world.getEmptySurroundingTiles(sleepLocation));
         
@@ -168,7 +168,9 @@ public class Bunny implements Actor{
         }
         
         Location exit = available.get(r.nextInt(available.size()));
+        
         world.setTile(exit, this);
+
         return true;
     }
 
