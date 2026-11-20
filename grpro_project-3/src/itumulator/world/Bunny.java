@@ -1,20 +1,19 @@
 package itumulator.world;
-import java.io.ObjectInputStream.GetField;
 import java.util.*;
 import itumulator.simulator.Actor;
 
 public class Bunny implements Actor{
     int age;
     int daysWithoutFood;
-    boolean isNear = false;
-    Location location;
-    int kidsamount = 1;
+    int kidsAmount = 2;
+    int reproduceTimer = 0;
+    int cooldown_days = 2;
     int maxAge = 20;
-    int adultAge = 6;
+    int adultAge = 2;
     int oldAge = 15;
     Hole hole;
     int searchRadius = 5;
-    boolean sleeping = false;
+    int chanceOfBaby = 50;
 
     Random r = new Random();
 
@@ -29,71 +28,69 @@ public class Bunny implements Actor{
 
     @Override
     public void act(World world){
-        
-        if (world.isDay()) {
-            if (sleeping){
-                if (getUpBro(world)){
-                    sleeping = false;
-                }
-            } else {
-                move(world);
-            }
-        } else {
-            if (!sleeping){
-                sleep(world);
-            }
-       }
-
-            if (daysWithoutFood >= 3 || age >= maxAge) {
-            world.delete(this);
-            return;
-        }
-
         if (world.getCurrentTime() % 20 == 0){
             daysWithoutFood++;
             age++;
         }
+        if (daysWithoutFood >= 3 || age >= maxAge) {
+            world.delete(this);
+            return;
+        }
+        if (!world.isOnTile(this)) {
+            if (world.isDay()) {
+                getUpBro(world);
+            }
+            return;
+        }
 
-        if (daysWithoutFood >= 2) {
+        if (world.isNight()) {
+            sleep(world);
+            return;
+        }
+        move(world);
+
+        if (daysWithoutFood >= 1) {
             eat(world);
         }
+        if(canReproduce() && r.nextInt(100) < chanceOfBaby) {
+            Bunny partner = findFuck(world);
+            if (partner != null && newbunnyloc(world)) {
+                this.reproduceTimer = cooldown_days;
+                partner.reproduceTimer = cooldown_days;
+            }
 
-        if (this.location != null){
-            isNear(world);
         }
 
-        if (isNear == true && age >= adultAge && age < oldAge && r.nextInt(100) < 20) {
-            newbunnyloc(world);
-            isNear = false;
-        }
 
     }
 
-     public void isNear(World world){
-        isNear = false;
-
-        Set<Location> bunnys = world.getSurroundingTiles();
-        
-        for (Location loc : bunnys) {
-            if (world.getTile(loc) instanceof Bunny) {
-                Bunny otherObject = (Bunny) world.getTile(loc);
-                if (otherObject.getAge() >= adultAge && otherObject.getAge() < oldAge) {
-                    isNear = true;
-                    break;
-                }
+    boolean canReproduce() {
+        return age >= adultAge && age < oldAge && reproduceTimer <= 0 && reproduceTimer <= 0;
+    }   
+    private Bunny findFuck(World world) {
+        Location thisLocation = world.getLocation(this);
+        for(Location loc : world.getSurroundingTiles(thisLocation)) {
+            Object bun = world.getTile(loc);
+            if(bun instanceof Bunny && bun != this && ((Bunny) bun).canReproduce()) {
+                return (Bunny) bun;
             }
         }
+        return null;
+
     }
 
-    public void newbunnyloc(World world){
-            Set<Location> bunloc = world.getEmptySurroundingTiles();
+    public boolean newbunnyloc(World world){
+            Set<Location> bunloc = world.getEmptySurroundingTiles(world.getLocation(this));
             List<Location> list = new ArrayList<>(bunloc);
+            boolean born = false;
 
-        for (int i = 0; i < kidsamount; i++) {
+        for (int i = 0; i < kidsAmount && !list.isEmpty() ; i++) {
             int index = r.nextInt(list.size());
             Location place = list.remove(index);
             world.setTile(place, new Bunny());
+            born = true;
         }
+        return born;
     }
 
     public void move(World world) {
@@ -107,14 +104,24 @@ public class Bunny implements Actor{
     }
 
     public void eat(World world) {
-        Set<Location> neighbours = world.getSurroundingTiles(10);
-        for (Location loc : neighbours) {
-            if (world.getTile(loc) instanceof Grass) {
-                world.move(this, loc);
-                world.delete(world.getNonBlocking(loc));
-                daysWithoutFood = 0;
-                break;
+        Location nowLocation = world.getLocation(this);
+        Location eatLocation = null;
+        int Dist = Integer.MAX_VALUE;
+        for (Location loc : world.getSurroundingTiles(nowLocation, 10)) {
+            if(world.getNonBlocking(loc) instanceof Grass && world.isTileEmpty(loc)){
+                int dis = distanceCalc(nowLocation, loc);
+                if (dis < Dist) {
+                eatLocation = loc;
+                Dist = dis;
+                }
             }
+        }
+        if (eatLocation != null) {
+           Object grass = world.getNonBlocking(eatLocation);
+            world.move(this,eatLocation);
+            world.delete(grass);
+            daysWithoutFood = 0;
+
         }
     }
 
@@ -140,15 +147,15 @@ public class Bunny implements Actor{
     public void sleep(World world){
         Location nowLocation = world.getLocation(this);
         if (hole == null){
-             hole = findHole(world, world.getLocation(this));
-            if (hole == null && !dig(world, world.getLocation(this))){
+             hole = findHole(world, nowLocation);
+            if (hole == null && !dig(world, nowLocation)){
                 move(world);
+                return;
             }
         }
         Location holeLocation = world.getLocation(hole);
         if (distanceCalc(nowLocation, holeLocation) <= 1){
             world.remove(this);
-            sleeping = true;
         } else {
             goFromHereToHere(world, nowLocation, holeLocation);
         }
@@ -159,18 +166,16 @@ public class Bunny implements Actor{
             return false;
         }
 
-        Location sleepLocation = world.getLocation(hole);
+        Location holeLocation = world.getLocation(hole);
 
-        List<Location> available = new ArrayList<>(world.getEmptySurroundingTiles(sleepLocation));
-        
+        List<Location> available = new ArrayList<>(world.getEmptySurroundingTiles(holeLocation));
+        if (world.isTileEmpty(holeLocation)) {
+            available.add(holeLocation);
+        }
         if (available.isEmpty()){
             return false;
         }
-        
-        Location exit = available.get(r.nextInt(available.size()));
-        
-        world.setTile(exit, this);
-
+        world.setTile(available.get(r.nextInt(available.size())), this);
         return true;
     }
 
