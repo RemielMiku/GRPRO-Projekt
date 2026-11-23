@@ -31,6 +31,10 @@ public class Bunny implements Actor{
         if (world.getCurrentTime() % 20 == 0){
             daysWithoutFood++;
             age++;
+            if (reproduceTimer > 0) {
+                reproduceTimer--;
+
+            } 
         }
         if (daysWithoutFood >= 3 || age >= maxAge) {
             world.delete(this);
@@ -65,7 +69,7 @@ public class Bunny implements Actor{
     }
 
     boolean canReproduce() {
-        return age >= adultAge && age < oldAge && reproduceTimer <= 0 && reproduceTimer <= 0;
+        return age >= adultAge && age < oldAge && reproduceTimer <= 0;
     }   
     private Bunny findFuck(World world) {
         Location thisLocation = world.getLocation(this);
