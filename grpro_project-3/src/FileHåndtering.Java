@@ -1,13 +1,13 @@
 import itumulator.world.*;
-import itumulator.
+import java.util.*;
 
 public class FileHaandtering {
     Random r = new Random();
-    public static int Size(Path file) {
+    public static int Size(Path file) throws IOException {
         return Integer.parseInt(Files.readAllLines(file).get(0).trim());
     }
     
-    public static void bootUp(World world, Path file) {
+    public static void bootUp(World world, Path file) throws IOException{
         List<String> linjer = Files.readAllLines(file);
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i).trim();
