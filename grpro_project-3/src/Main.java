@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.util.*;
 
 public class Main {
-    //static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         int size = 5;
@@ -23,12 +22,8 @@ public class Main {
         // implements rabbit.png to Bunny class
         DisplayInformation bunny = new DisplayInformation(Color.white, "rabbit-large");
         program.setDisplayInformation(Bunny.class, bunny);
-        /*
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            
-        }
-        */
+
+        /* ///// manually add hole and bunny /////
         Location holeLocation = new Location(rand.nextInt(size), rand.nextInt(size));
         world.setTile(holeLocation, new Hole());
 
@@ -48,12 +43,14 @@ public class Main {
             }
             world.setTile(place, new Bunny());
         }
+        */
 
 
         program.show();
         for (int i = 0; i < 200; i++) {
             program.simulate();
             
+            /* ///// manually add grass and keep and  //////
             int grassCount = 0;
 
             // Go through all entities existing in the world and count grass
@@ -74,6 +71,7 @@ public class Main {
                 Grass grasss = new Grass(world, grassLocation, 0.5);
                 world.setTile(grasss.location, grasss);
             }
+            */
 
         }
     }
