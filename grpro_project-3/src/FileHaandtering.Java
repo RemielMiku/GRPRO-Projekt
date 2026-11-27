@@ -15,7 +15,7 @@ public class FileHaandtering {
             String line = lines.get(i).trim();
             
             String[] delElementer = line.split("\\s++");
-            int mængdeTingTing = parseAmount(delElementer[1]);
+            static int mængdeTingTing = parseAmount(delElementer[1]);
             for ( int w = 0; w < mængdeTingTing; w++) {
                 place(world, delElementer[0]);
             }

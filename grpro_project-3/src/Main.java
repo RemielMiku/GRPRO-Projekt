@@ -3,11 +3,19 @@ import itumulator.executable.Program;
 import itumulator.world.*;
 import java.awt.Color;
 import java.util.*;
+import java.nio.file.*;
+import java.io.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        int size = 5;
+        // manual world size:
+        // int size = 5;
+
+        // world size from files:
+        Path file = Paths.get("../../tests/week-1/test1.txt");
+        int size = FileHaandtering.Size(file);
+
         Program program = new Program(size, 800, 1000);
         World world = program.getWorld();
         Random rand = new Random();
@@ -45,6 +53,8 @@ public class Main {
         }
         */
 
+        // boot world from test
+        FileHaandtering.bootUp(world, file);
 
         program.show();
         for (int i = 0; i < 200; i++) {
